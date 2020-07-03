@@ -85,7 +85,7 @@ def my_kernel(X, Y):
 	return np.dot(X,Y.T)
 ```
 
-需要注意的是，在`SVR`在计算的训练（`fit()`）过程中，传入`X`和`Y`为一样的两个矩阵，矩阵的形式为`（n_samples, n_features）`。在预测的过程中（`predict()`），传入的`X`为训练集（形式为`（n_samples_train, n_features）`），传入的`Y`为测试集（形式为`（n_samples_test, n_features）`）。
+需要注意的是，在`SVR`在计算的训练（`fit()`）过程中，传入`X`和`Y`为一样的两个矩阵，矩阵的形式为`(n_samples, n_features)`。在预测的过程中（`predict()`），传入的`X`为训练集（形式为`(n_samples_train, n_features)`），传入的`Y`为测试集（形式为`(n_samples_test, n_features)`）。
 
 - 自定义wavelet kernel
 ```python
@@ -95,7 +95,8 @@ def WaveletKernel(X, Y, a=0.05):
     kernel = np.zeros((n_train, n_test))
     for i in range(n_train):
         for j in range(n_test):
-            kernel[i, j] = np.prod(np.cos(1.75*(X[i, :]-Y[j, :])/a) * np.exp(-np.dot((X[i, :]-Y[j, :]), (X[i, :]-Y[j, :]).T)/(2*a*a)))
+            delta = X[i, :]-Y[j, :]
+            kernel[i, j] = np.prod(np.cos(1.75*delta/a) * np.exp(-delta*delta)/(2*a*a))
     return kernel
 ```
 ### 5.4. Multi-Kernel
