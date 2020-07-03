@@ -99,5 +99,28 @@ def WaveletKernel(X, Y, a=0.05):
             kernel[i, j] = np.prod(np.cos(1.75*delta/a) * np.exp(-delta*delta)/(2*a*a))
     return kernel
 ```
+由于存在双重循环，核函数计算相当耗时，借助python的广播机制（broadcast），改进如下：
+
+```python
+def WaveletKernel(X, Y, a=2):
+    n_train = X.shape[0]
+    n_test = Y.shape[0]
+    kernel = np.zeros((n_train, n_test))
+    for j in range(n_test):
+        delta = X - Y[j, :] 
+        # print(np.exp(-delta*delta).shape)
+        kernel[:, j] = np.prod(np.cos(1.75*delta/a) * np.exp(-delta*delta)/(2*a*a), axis=1)
+    return kernel
+```
+进一步改进，去掉循环，但是比较占据内存：
+
+```python
+def WaveletKernel2(X, Y, a=2):
+    n_train = X.shape[0]
+    Y_temp = np.tile(Y, reps=(n_train, 1, 1))
+    delta = np.expand_dims(X, axis=1) - Y_temp 
+    kernel = np.prod(np.cos(1.75*delta/a) * np.exp(-delta*delta)/(2*a*a), axis=2)
+    return kernel
+```
 ### 5.4. Multi-Kernel
 
