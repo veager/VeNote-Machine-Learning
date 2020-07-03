@@ -4,7 +4,7 @@
 import numpy as np
 
 
-def WaveletKernel(X, Y, a=0.05):
+def WaveletKernel(X, Y, a=2):
     # print(X.shape, Y.shape)
     # print(X-Y)
     
@@ -18,8 +18,9 @@ def WaveletKernel(X, Y, a=0.05):
     kernel = np.zeros((n_train, n_test))
     for i in range(n_train):
         for j in range(n_test):
-            kernel[i, j] = np.prod(np.cos(1.75*(X[i, :]-Y[j, :])/a) * np.exp(-np.dot((X[i, :]-Y[j, :]), (X[i, :]-Y[j, :]).T)/(2*a*a)))
+            delta = X[i, :]-Y[j, :]
+            # print(np.exp(-delta*delta).shape)
+            kernel[i, j] = np.prod(np.cos(1.75*delta/a) * np.exp(-delta*delta)/(2*a*a))
     return kernel
 # ----------------------------------------------------------------------------
-
 
