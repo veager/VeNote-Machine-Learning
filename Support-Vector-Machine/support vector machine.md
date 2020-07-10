@@ -67,7 +67,7 @@ $$
 \begin{aligned} 
 	K\left(\mathbf{x}, \mathbf{x}^{\prime}\right) 
 	&= \prod_{d=1}^{D} h\left(\frac{x_{i}-x_{i}^{\prime}}{a}\right) 
-	\\ &=\prod_{i}^{N}\left(\cos \left(1.75 \times \frac{\left(x_{d}-x_{d}^{\prime}\right)}{a}\right) \exp \left(-\frac{\left(x_{d}-x_{d}^{\prime}\right)^{2}}{2 a^{2}}\right)\right) 
+	\\ &=\prod_{d=1}^{D}\left(\cos \left(1.75 \times \frac{\left(x_{d}-x_{d}^{\prime}\right)}{a}\right) \exp \left(-\frac{\left(x_{d}-x_{d}^{\prime}\right)^{2}}{2 a^{2}}\right)\right) 
 \end{aligned}
 $$
 
