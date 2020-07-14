@@ -190,15 +190,15 @@ $$
 
 通过Robust方法，避免outlier对回归的影响。
 
-Step1: 在计算完估计值 ${\hat{y}_i(i=1,2,\cdots,N)}$ 后，计算残差：
-
+**Step1: **在计算完估计值 ${\hat{y}_i(i=1,2,\cdots,N)}$ 后，计算残差：
 $$
 e_i = y_i - \hat{y}_i
 $$
 
-Step2: 并计算残差绝对值序列 ${\{|e_i|\}_{i=1}^N}$ 的中位值（median）${s = \text{median} \{|e_i|\}}$
+**Step2: **并计算残差绝对值序列 ${\{|e_i|\}_{i=1}^N}$ 的中位值（median）${s = \text{median} \{|e_i|\}}$
 
 计算 robustnest weight：
+
 $$
 \delta_k = Bisq \left( \frac{e_k}{6s} \right)
 $$
@@ -212,12 +212,15 @@ Bisq(t) = \left\{ \begin{array}{ll}
 \end{array}\right.
 $$
 
-Step3: 在对点 ${\mathbf{x}_j}$ 进行评估时，用 ${\delta_k}$ 修正 ${\kappa(\mathbf{x}_j, \mathbf{x}_k)}$，即：
+**Step3: **在对点 ${\mathbf{x}_j}$ 进行评估时，用 ${\delta_k}$ 修正 ${\kappa(\mathbf{x}_j, \mathbf{x}_k)}$，即：
+
 $$
 \kappa(\mathbf{x}_j, \mathbf{x}_k) \leftarrow \delta_k \cdot \kappa(\mathbf{x}_j, \mathbf{x}_k), \quad k=1,2,\cdots,K
 $$
 
-Step4: 利用修正后的
+**Step4: **利用修正后的 ${\kappa(\mathbf{x}_j, \mathbf{x}_k)}$ 对 ${\mathbf{x}_j}$ 进行评估。
+
+**Step5: **重复 Step1-4直到满足循环终止条件。
 
 #### 2.1 LOESS 程序实现
 
