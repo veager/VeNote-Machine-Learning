@@ -229,7 +229,7 @@ $$
 
 注意：`smooth_edge=Fasle` 同时 `robust=True` 尚未实现。
 
-测试结果在[`test_stl.ipynb`](stl_test.ipynb)中
+测试结果在[`test_stl.ipynb`](stl_test.ipynb)中。
 
 #### 2.3 STL
 
@@ -250,6 +250,8 @@ $$
 $$
 X(t) = T(t) + P(t) + R(t)
 $$
+
+
 
 ##### 2.3.2 代码实现
 
