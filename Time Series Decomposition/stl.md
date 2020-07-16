@@ -82,17 +82,11 @@ def SeasonalDecespostion(original, period):
 
 > 参考文献
 >
-> [1] Cleveland, R. B., W. S. Cleveland, J. E. McRae and I. Terpenning. STL : A seasonal-trend decomposition procedure based on loess.  Journal of Official Statistics, 1990, 6(1), 3–73.
+> [1] 局部加权回归LOWESS, 博客园, [链接](https://www.cnblogs.com/en-heng/p/7382979.html)
 >
-> [2] Xiong, Tao , C. Li , and Y. Bao . "Seasonal forecasting of agricultural commodity price using a hybrid STL and ELM method: Evidence from the vegetable market in China." *Neurocomputing* 275(2018):2831-2844.
+> [2] Trevor Hastie, Robert Tibshirani, and Jerome Friedman. The elements of statistical learning. Springer, Chapter 6.
 >
-> [3] D. Chen, J. Zhang and S. Jiang, "Forecasting the Short-Term Metro Ridership With Seasonal and Trend Decomposition Using Loess and LSTM Neural Networks," in *IEEE Access*, vol. 8, pp. 91181-91187, 2020, 
->
-> [4] 局部加权回归LOWESS, 博客园, [链接](https://www.cnblogs.com/en-heng/p/7382979.html)
->
-> [5] Trevor Hastie, Robert Tibshirani, and Jerome Friedman. The elements of statistical learning. Springer, Chapter 6.
->
-> [6] William S. Cleveland, Robust Locally Weighted Regression and Smoothing Scatterplots, Journal of the American Statistical Association, 1979, 74:368, 829-836
+> [3] William S. Cleveland, Robust Locally Weighted Regression and Smoothing Scatterplots, Journal of the American Statistical Association, 1979, 74:368, 829-836
 
 #### 2.1. LOESS
 
@@ -222,18 +216,48 @@ $$
 
 **Step5: **重复 Step1-4直到满足循环终止条件。
 
-#### 2.1 LOESS 程序实现
+#### 2.2 LOESS 程序实现
 
+`pyloess.py`中`LocallyWeightedRegression`类实现，主要参数说明：
 
+| 参数            | 类型   | 含义                                 |
+| --------------- | ------ | ------------------------------------ |
+| `k`             | `int`  | 邻近样本个数，决定了核宽度           |
+| `smooth_edge`   | `bool` | 是否对边界的点重新估计               |
+| `robust`        | `bool` | 是否视同Robust方法减小outliers的影响 |
+| `robust_n_iter` | `int`  | Robust方法的迭代次数                 |
 
+注意：`smooth_edge=Fasle` 同时 `robust=True` 尚未实现。
 
+测试结果在[`test_stl.ipynb`](stl_test.ipynb)中
 
+#### 2.3 STL
 
+> 参考文献
+>
+> [1] 时间序列分解算法：STL, 博客园, [连接](https://www.cnblogs.com/en-heng/p/7390310.html)
+>
+> [2] Cleveland, R. B., W. S. Cleveland, J. E. McRae and I. Terpenning. STL : A seasonal-trend decomposition procedure based on loess.  Journal of Official Statistics, 1990, 6(1), 3–73.
+>
+> [3] Xiong, Tao , C. Li , and Y. Bao . "Seasonal forecasting of agricultural commodity price using a hybrid STL and ELM method: Evidence from the vegetable market in China." *Neurocomputing* 275(2018):2831-2844.
+>
+> [4] D. Chen, J. Zhang and S. Jiang, "Forecasting the Short-Term Metro Ridership With Seasonal and Trend Decomposition Using Loess and LSTM Neural Networks," in *IEEE Access*, vol. 8, pp. 91181-91187, 2020, 
 
+##### 2.3.1 基本思路
 
+设原始时间序列为 ${X(t)}$，周期长度为 ${C}$，STL可以将原始序列 ${X(t)}$ 分解为：趋势序列为 ${T(t)}$，周期（季节）序列为 ${P(t)}$ ，残差（余项）序列${R(t)}$：
 
+$$
+X(t) = T(t) + P(t) + R(t)
+$$
 
+##### 2.3.2 代码实现
 
+`statsmodels`库中[`tsa.seasonal.STL`](https://www.statsmodels.org/stable/generated/statsmodels.tsa.seasonal.STL.html)类实现。
+
+自己code的`pystl.py`实现，并且改进了两项：1.缺失值的处理；2.包外样本的分解（尚未完成）。
+
+测试结果在[`test_stl.ipynb`](stl_test.ipynb)中。
 
 
 

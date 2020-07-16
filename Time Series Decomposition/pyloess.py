@@ -44,7 +44,7 @@ class LocallyWeightedRegression():
         # print(dist_matrix-dist_matrix1)
         return dist_matrix
     # -------------------------------------------------------------------------
-    def EpanechnikovKernel(self, x, kernel_width):
+    def EpanechnikovKernel(self, x):
         
         y = np.zeros_like(x)
         
@@ -84,8 +84,10 @@ class LocallyWeightedRegression():
         for i in range(n_samples_test):
             # 邻近点索引
             neighbour_index = min_index[i, :self.k]
+            # 核
+            kernel = dist_matrix[i, neighbour_index]/kernel_width[i]
             # 权重
-            weight = self.EpanechnikovKernel(dist_matrix[i, neighbour_index], kernel_width[i])
+            weight = self.EpanechnikovKernel(kernel)
             # 邻近点实际值
             neighbour_y = train_y[neighbour_index]
             
@@ -113,8 +115,10 @@ class LocallyWeightedRegression():
         for i in range(n_samples_test):
             # 邻近点索引
             neighbour_index = min_index[i, :self.k]
+            # 核
+            kernel = dist_matrix[i, neighbour_index]/kernel_width[i]
             # 权重
-            weight = self.EpanechnikovKernel(dist_matrix[i, neighbour_index], kernel_width[i])
+            weight = self.EpanechnikovKernel(kernel)
             # 邻近点实际值
             neighbour_y = train_y[neighbour_index]
             # 邻近点x
@@ -157,7 +161,7 @@ class LocallyWeightedRegression():
         if self.robust:
             
             for i in range(self.robust_n_iter):
-            
+                # 误差绝对值
                 error = np.abs(y_pred - train_y)
                 
                 median_error = np.median(error)
@@ -169,5 +173,18 @@ class LocallyWeightedRegression():
         return y_pred
     # -------------------------------------------------------------------------
 # =============================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
