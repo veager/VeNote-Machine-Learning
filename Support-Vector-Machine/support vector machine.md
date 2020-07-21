@@ -76,7 +76,9 @@ $$
 
 ### 5.3. `sklearn`自定义核函数
 
-在`sklearn.svm.SVR`类中，可以通过`kernel`参数（`kernel=my_kernel`）指定定义的核函数，或者`kernel='precomputed'`使用自定义的Gama矩阵（使用`kernel='precomputed'`时，在`fit()`和`predict()`过程传入的`X`为计算好的Gama矩阵。详细参考`sklearn.svm.SVR`的[说明](https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVR.html)）
+在`sklearn.svm.SVR`类中，可以通过`kernel`参数（`kernel=my_kernel`）指定定义的核函数，或者`kernel='precomputed'`使用自定义的 Gama 矩阵（使用`kernel='precomputed'`时，在`fit()`和`predict()`过程传入的`X`为计算好的Gama矩阵。详细参考`sklearn.svm.SVR`的[说明](https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVR.html)）
+
+**提示：**在使用 Grid Search 等方法仅对 SVR 模型的不敏感度系数 ${\epsilon}$ 和正则化系数 ${C}$ 进行超参数选择的时候，建议考虑使用`kernel='precomputed'`方法，提前计算 Gama 矩阵，这样可以减少模型训练时 kernel 计算的时间。
 
 - 自定义kernel
 
