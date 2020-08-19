@@ -84,22 +84,13 @@ Singular Value Thresholding Algorithm for Matrix Completion
 >
 > [2] 矩阵补全（Matrix Completion）和缺失值预处理, [连接](https://www.cnblogs.com/wuliytTaotao/p/10814770.html)
 
-设 ${\mathbf{Y} \in \R^{M \times N}}$ 为观测矩阵，将被观测元素的索引合集记作 ${\Omega}$ 。令 ${\mathcal{P}_\Omega(\cdot)}$ 表示一个作用于 ${\Omega}$ 的正交映射 (orthogonal projection)，其定义：
-
-$$
-[\mathcal{P}_\Omega(\mathbf{Y})]_{m,n} = \left\{
-\begin{array}{left}
-y_{mn}, & \text{if} \space (m, n) \in \Omega\\ 
-0, & \text{otherwise}
-\end{array}
-\right.
-$$
-
-比如：
-
-
+### 2.1. 基本原理
 
 核范数（unclear norm）
 $$
 ||\mathbf{X}_*|| = tr \left( \sqrt{\mathbf{X}^\mathbf{T} \mathbf{X}} \right)
 $$
+
+### 2.2. 编程实现
+
+基于`PyTorch`实现：
