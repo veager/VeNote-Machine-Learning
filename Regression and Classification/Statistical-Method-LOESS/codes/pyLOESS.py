@@ -12,12 +12,17 @@ class LOESS(BaseEstimator, RegressorMixin):
     '''
     sklearn 的 LOESS 回归
     '''
-    def __init__(self, k=5, kernel='bisquare', distance='manhattan', p='1', istimeseries=True):
+    def __init__(self, k=5, kernel='bisquare', distance='manhattan', p='1', degree=1, robust=True, istimeseries=True):
+
         self.k = k #
         self.kernel = kernel
+
         self.distance = distance
         self.p = p
-        
+
+        self.degree = degree
+        self.robust = robust
+
         self.istimeseries = istimeseries
         if self.istimeseries:
             # front_length 和 behind_length 表示当前值前邻近点数量和后邻近点数量
@@ -97,6 +102,14 @@ class LOESS(BaseEstimator, RegressorMixin):
 # #         return np.array(np.hstack([x.reshape(-1,1), all_near_indices]))
 #     # --------------------------------------------   
     
+	def __roubst_weight(self, resid):
+		'''
+
+		'''
+		roubst_weight = self.bisquare(resid / (6*np.median(resid)))
+		return roubst_weight
+    # --------------------------------------------   
+
     def __timeseries_findNeighbor_index(self, x_0):
         '''
         用于时间序列的查找邻近样本
@@ -113,25 +126,6 @@ class LOESS(BaseEstimator, RegressorMixin):
             x_0_neighbor_indices = [i for i in range(self.train_length - self.k, self.train_length)]
         
         return x_0_neighbor_indices
-    # --------------------------------------------   
-    
-    def __timeseries_fit(self, x, y):
-        '''
-        用于判读分界点
-        '''
-        self.train_x = x
-        self.train_y = y
-        
-        self.train_length = x.size
-        
-        # 索引分界点
-        #                    0 <= index < front_length 
-        #         front_length <= index < x.size-behind_length
-        # x.size-behind_length <= index < x.size
-        self.bound_up  = x[self.front_length]            # < self.bound_up   表示上边界点
-        self.bound_low = x[x.size - self.behind_length]  # >= self.bound_low 表示下边界点
-    
-        return None
     # --------------------------------------------   
 
     def __timeseries_fit(self, x, y):
@@ -189,10 +183,16 @@ class LOESS(BaseEstimator, RegressorMixin):
             y_0_neighbor = self.train_y[x_0_neighbor_indices]
             # 距离
             dist = neigh_dist[ix]
+            # 权重
             kernel_weight = self.__kernelFunction(dist / np.max(dist))
-            
+            if robust:
+            	roubst_weight = self.__roubst_weight()
+            	weight = kernel_weight * 
+            else:
+            	weight = kernel_weight
+
             try:
-                matrix_W = np.diag(kernel_weight)
+                matrix_W = np.diag(weight)
                 matirx_X[:, 1:] = x_0_neighbor
                 inv = np.linalg.inv(np.dot(np.dot(matirx_X.T, matrix_W), matirx_X))
             except:
