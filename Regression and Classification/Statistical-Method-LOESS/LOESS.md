@@ -46,3 +46,10 @@
 
 `istimeseries=False`是通过[`sklearn.neighbors.NearestNeighbors`](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.NearestNeighbors.html)类搜索邻近值，其要求输入数据`X`必须维2维或2维以上。如果`X`维1维，要转换成二维的形式，即`(n,)->(n,1)`。
 
+
+
+# 参考文献
+
+[1] The Elements of Statistical Learning: Data Mining, Inference, and Prediction, Second Edition, Chapter 6 Kernel Smoothing Methods, [link](https://web.stanford.edu/~hastie/ElemStatLearn/).
+
+[2] [1]虞乐,肖基毅. 数据挖掘中强局部加权回归算法实现[J]. 电脑知识与技术,2012,8(07):1493-1495. doi:
