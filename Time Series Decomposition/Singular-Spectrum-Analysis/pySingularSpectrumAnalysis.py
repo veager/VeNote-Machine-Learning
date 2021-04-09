@@ -32,9 +32,10 @@ class SingularSpectrumAnalysis():
         
         # 步骤 1 嵌入
         self.F = np.array([series[i:self.L+i] for i in range(0, self.N)]).T
-        print(self.F.shape)
+        
         # 步骤 2 SVD
         self.U, self.sigma, VT = np.linalg.svd(self.F)
+        # sigma 是奇异值（singular value），等于np.sqrt(lanmda)
         self.d = np.linalg.matrix_rank(self.F)
         self.V = VT.T
         
