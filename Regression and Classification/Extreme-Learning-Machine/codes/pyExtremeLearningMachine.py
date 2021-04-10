@@ -98,7 +98,7 @@ class ExtremeLearninMachineBase(BaseEstimator):
 #   用于回归的 极限学习机
 # 
 #
-class ExtremeLearninMachineRegression(RegressorMixin, ExtremeLearninMachineBase):
+class ExtremeLearninMachineRegressor(RegressorMixin, ExtremeLearninMachineBase):
     
     def __init__(self, hidden_unit=10, regularization_factor=0.5, activation_type='sigmoid', random_seed=42):
         ExtremeLearninMachineBase.__init__(self, hidden_unit, regularization_factor, activation_type, random_seed)
