@@ -39,6 +39,7 @@ class PeriodicTrendDecomposition():
         
         for i in range(self.period_length):
             subseries[i] = x[i::self.period_length]
+            # print('subseries[{0}]'.format(i), len(subseries[i]))
         return subseries
     # --------------------------------------------------------
     
@@ -58,12 +59,19 @@ class PeriodicTrendDecomposition():
                 expand          = True
             )
             pred_subseris.append(pred_subseris_i)
-        
+            # print('pred_subseris_{0}'.format(i), len(pred_subseris_i))
+        # print('pred_subseris', len(pred_subseris))
         C_t = []
         # print(self.n_period, len(pred_subseris[0]))
+        
+        # 整周期的
         for i in range(self.n_period+2):
             for pred_subseris_i in pred_subseris:
                 C_t.append(pred_subseris_i[i])
+        # 余下的
+        for i in range(self.n_mod):
+            C_t.append(pred_subseris[i][-1])
+        # print('C_t', len(C_t))
         return C_t
     # --------------------------------------------------------
     
@@ -77,6 +85,8 @@ class PeriodicTrendDecomposition():
         '''
         P_t = [np.mean(x[i::self.period_length]) for i in range(self.period_length)]
         S_t = P_t * self.n_period
+        if not (self.n_mod == 0):
+            S_t.extend(P_t[:self.n_mod])
         return S_t, P_t
     # --------------------------------------------------------
     
@@ -140,6 +150,7 @@ class PeriodicTrendDecomposition():
             assert len(y) == len(y_robust_weight)
         except:
             print('LOESSSmooth 函数的输入变量 y 与 y_robust_weight 的长度不同')
+            return None
         
         # assert y.ndim == 1
         # 训练合集
@@ -284,10 +295,12 @@ class PeriodicTrendDecomposition():
         # print(self.subseries)
         # 周期子序列平滑
         self.C_t = self.subseriesSmooth(self.subseries, k=self.k1)
-        
+        # print('C_t', len(self.C_t))
         # Step 3:
         self.E_t = self.moveAverage(self.C_t, self.period_length)
+        # print('E_t', len(self.E_t))
         self.E_t = self.moveAverage(self.E_t, self.period_length)
+        # print('E_t', len(self.E_t))
         # # LOEES 平滑
         self.E_t, self.E_t_neigh_dist, self.E_t_neigh_ind = self.LOESSSmooth(
             y               = self.E_t, 
@@ -333,6 +346,8 @@ class PeriodicTrendDecomposition():
         self.series_length = len(x)
         # 周期数量 不足一个周期的 则 舍去
         self.n_period = self.series_length // self.period_length
+        # 余数
+        self.n_mod = self.series_length % self.period_length
         
         # 初始 样本鲁棒权重
         self.robust_weight = [1.] *  self.series_length
@@ -368,7 +383,7 @@ class PeriodicTrendDecomposition():
         '''
         # Step 1: 计算季节成分
         # print(self.x_pred_ix % self.period_length)
-        ofs_S_i = self.P_t[self.x_pred_ix % self.period_length]
+        ofs_S_i = self.P_t[(self.n_mod + self.x_pred_ix) % self.period_length]
         
         # Step 2: 计算去季节成分
         ofs_S_i_deseason = x - ofs_S_i
