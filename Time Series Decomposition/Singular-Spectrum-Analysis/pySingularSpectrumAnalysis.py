@@ -82,7 +82,7 @@ class SingularSpectrumAnalysis():
         return self.ts_comps
     # -----------------------------------------------------------------------------
     
-    def trend_periodic_recombine(self, threshold=0.95, periodic_end_ind=None):
+    def trend_periodic_recombine(self, threshold=0.995, periodic_end_ind=None):
         '''
         趋势周期重组
         
