@@ -58,9 +58,11 @@ def _generate_bagging_indices(
     random_state = check_random_state(random_state)
 
     # Draw indices
-    feature_indices = _generate_indices(
-        random_state, bootstrap_features, n_features, max_features)
-    feature_indices = np.sort(feature_indices)
+    if n_features == max_features:
+        feature_indices = np.arange(n_features)
+    else:
+        feature_indices = _generate_indices(
+            random_state, bootstrap_features, n_features, max_features)
 
     sample_indices = _generate_indices(
         random_state, bootstrap_samples, n_samples, max_samples, sample_weight)
@@ -144,7 +146,7 @@ class WeightedBaggingRegressor(RegressorMixin, BaseBagging):
             max_samples = 1.0,
             max_features = 1.0,
             bootstrap = True,
-            bootstrap_features = False,
+            bootstrap_features = True,
             weighted_bootstrap = True,
             weighted_training = True,
             oob_score = False,
@@ -175,23 +177,14 @@ class WeightedBaggingRegressor(RegressorMixin, BaseBagging):
             return DecisionTreeRegressor()
         return self.estimator
     # -------------------------------------------------------------------------
-    def fit(self, X, y, sample_weight=None):
-
-        random_state = check_random_state(self.random_state)
-
-        # check X, y
-        X, y = check_X_y(X, y, accept_sparse=False, dtype=None)
-
-        self._X = X
-        self._y = y
-        self._sample_weight = sample_weight
-
-        # Remap output
-        self._n_samples = X.shape[0]
-        self.n_features_in_ = X.shape[1]
-
-        # Check parameters
-        self._validate_estimator(self._get_estimator())
+    def _check_bootstrap_params(self):
+        '''
+        Check the bootstrap related parameters:
+        self.bootstrap
+        self.bootstrap_features
+        self.max_samples
+        self.max_features
+        '''
 
         # Check bootstrap samples
         if self.bootstrap:
@@ -246,6 +239,28 @@ class WeightedBaggingRegressor(RegressorMixin, BaseBagging):
         # Store validated integer feature sampling value
         self._max_features = max_features
 
+        return self
+    # -------------------------------------------------------------------------
+    def fit(self, X, y, sample_weight=None):
+
+        random_state = check_random_state(self.random_state)
+
+        # check X, y
+        X, y = check_X_y(X, y, accept_sparse=False, dtype=None)
+
+        self._X = X
+        self._y = y
+        self._sample_weight = sample_weight
+
+        # Remap output
+        self._n_samples = X.shape[0]
+        self.n_features_in_ = X.shape[1]
+
+        # Check parameters
+        self._validate_estimator(self._get_estimator())
+
+        # Check bootstrap parameters
+        self._check_bootstrap_params()
 
         # Check sample weights
         # (True, True), (True, False), (False, True)
@@ -367,6 +382,6 @@ class WeightedBaggingRegressor(RegressorMixin, BaseBagging):
         predictions /= n_predictions
 
         self.oob_prediction_ = predictions
-        # self.oob_score_ = r2_score(y, predictions)
-        self.oob_score_ = root_mean_squared_error(y, predictions, sample_weight=sample_weight)
+        self.oob_score_ = r2_score(y, predictions)
+        # self.oob_score_ = root_mean_squared_error(y, predictions, sample_weight=sample_weight)
 # ======================================================================================
