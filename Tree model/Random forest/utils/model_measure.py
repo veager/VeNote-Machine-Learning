@@ -1,13 +1,14 @@
 import sklearn
 import sklearn.metrics
 
-def measure_regression(y_true, y_pred):
+def measure_regression(y_true, y_pred, sample_weight=None):
 
 
     score = {
-        'mae'  : sklearn.metrics.mean_absolute_error(y_true, y_pred),
-        'mse'  : sklearn.metrics.mean_squared_error(y_true, y_pred),
-        'mape' : sklearn.metrics.mean_absolute_percentage_error(y_true, y_pred),
+        'mae'  : sklearn.metrics.mean_absolute_error(y_true, y_pred, sample_weight=sample_weight),
+        'mse'  : sklearn.metrics.mean_squared_error(y_true, y_pred, sample_weight=sample_weight),
+        'rmse' : sklearn.metrics.root_mean_squared_error(y_true, y_pred, sample_weight=sample_weight),
+        'mape' : sklearn.metrics.mean_absolute_percentage_error(y_true, y_pred, sample_weight=sample_weight),
         'r2'   : sklearn.metrics.r2_score(y_true, y_pred) }
 
     return score
