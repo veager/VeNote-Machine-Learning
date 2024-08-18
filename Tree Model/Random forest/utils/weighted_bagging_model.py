@@ -32,7 +32,7 @@ def _generate_indices(
     if population_weight is not None:
         assert n_population == len(population_weight)
         p = population_weight / np.sum(population_weight)
-        print(p)
+        # print(p)
     else:
         p = None
 
@@ -58,11 +58,17 @@ def _generate_bagging_indices(
     random_state = check_random_state(random_state)
 
     # Draw indices
-    if n_features == max_features:
-        feature_indices = np.arange(n_features)
+    if bootstrap_features:
+        if n_features == max_features:
+            feature_indices = np.arange(n_features)
+        else:
+            feature_indices = _generate_indices(
+                random_state, False, n_features, max_features)
+            # sort the indices to make sure in the ascending order
+            feature_indices = np.sort(feature_indices)
     else:
-        feature_indices = _generate_indices(
-            random_state, bootstrap_features, n_features, max_features)
+        feature_indices = np.arange(n_features)
+
 
     sample_indices = _generate_indices(
         random_state, bootstrap_samples, n_samples, max_samples, sample_weight)
