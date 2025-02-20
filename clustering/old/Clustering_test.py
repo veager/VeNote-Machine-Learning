@@ -15,7 +15,7 @@ transformation = [[0.60834549, -0.63667341], [-0.40887718, 0.85253229]]
 X_varied = np.dot(X_varied, transformation)
 
 
-from Clustering import FuzzyCMeanCluster
+from clustering.old.Clustering import FuzzyCMeanCluster
 model = FuzzyCMeanCluster(
     n_cluster = 3, 
     n_iter    = 50, 

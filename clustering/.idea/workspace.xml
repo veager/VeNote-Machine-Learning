@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="161708b2-7994-4fe1-a9f6-f052e0cc015c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/01 metric learning/01 dynamic time warping.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/code_utils/distance_metric/combined_euclidean_dtw.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/old/.idea/Clustering.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/old/MeasureLearning.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/VeNote-Machine-Learning.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/VeNote-Machine-Learning.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering.md" beforeDir="false" afterPath="$PROJECT_DIR$/old/Clustering.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering.py" beforeDir="false" afterPath="$PROJECT_DIR$/old/Clustering.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/old/Clustering_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Measure Learning.md" beforeDir="false" afterPath="$PROJECT_DIR$/01 metric learning/Measure Learning.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MeasureLearning.py" beforeDir="false" afterPath="$PROJECT_DIR$/code_utils/clustering_performance/metrics.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image/FCM_test1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/old/image/FCM_test1.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image/FCM_test2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/old/image/FCM_test2.jpg" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 1
+}]]></component>
+  <component name="ProjectId" id="2tIFRwEde4JZoy6FhHuWhJULjuf" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/Wei Zhou/Documents/zhouwei file/Github-Project/VeNote-Machine-Learning",
+    "settings.editor.selected.configurable": "configurable.group.appearance"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-91d3a02ef49d-43b77aa2d136-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.23654.177" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="161708b2-7994-4fe1-a9f6-f052e0cc015c" name="Changes" comment="" />
+      <created>1740031677024</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1740031677024</updated>
+      <workItem from="1740031678108" duration="2152000" />
+    </task>
+    <servers />
+  </component>
+</project>
